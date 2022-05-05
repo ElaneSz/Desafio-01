@@ -1,5 +1,5 @@
-# Desafio-01
-Atividade 05.05
+//Desafio-01 (Com modicações para rodar no computador do ifc)
+//Atividade 05.05
 const readline = require('readline')
 const { stdin: input, stdout: output } = require('process')
 const rl = readline.createInterface({ input, output })
