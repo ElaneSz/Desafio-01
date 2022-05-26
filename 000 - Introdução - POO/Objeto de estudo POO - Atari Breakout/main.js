@@ -1,56 +1,30 @@
-//const canvas = document.createElement("canvas")
-//const context = canvas.getContext("2d")
+const canvas = document.createElement("canvas") //criação do elemento || canvas = quadro em branco
+const context = canvas.getContext("2d") //caneta
 
-//canvas.width = 800
-//canvas.height = 600
+canvas.width = 800 //largura da parte branca
+canvas.height = 650 //altura da parte branca
 
-//let y = 0
-//let barSize = 100
-//let directionY = 1
+let x = 100 //onde começa a barra
+let barWidth = 100 //largura da barra
+let barHeight = 20 //altura da barra
+let directionX = 0 //direção da barra
 
-//function mainLoop() {
-    //context.clearRect(0, 0, canvas.width, canvas.height)
-    //context.fillRect(10, y, 20, barSize)
-    //y += directionY
-    //if (y <= 0 || y >= canvas.height - barSize) {
-        //directionY *= -1
-    //}
-    //requestAnimationFrame(mainLoop)
-//}
+document.addEventListener ("keydown", ev => {
+    if (ev.cod == "KeiD"){
 
-//requestAnimationFrame(mainLoop)
+    }
+})
 
-//document.body.append(canvas)
-
-//====================================================================
-
-const canvas = document.createElement("canvas")
-const context = canvas.getContext("2d")
-
-canvas.width = 800
-canvas.height = 600
-
-let y = 0
-let x = 0
-let barSize = 100
-let barX = 100
-let directionY = 1
-let directionX = 1
-
-function mainLoop() {
+function mainLoop() { //Início da função
     context.clearRect(0, 0, canvas.width, canvas.height)
-    context.fillRect(10, y, 20, barSize) //deso.hori,ini.deslo.verti.,largura
-    context.fillRect(50, x, 20, barX)
-        y += directionY
-        if (y <= 0 || y >= canvas.height - barSize) {
-            directionY *= -1
-        }
-        x += directionX
-        if (x <= 0 || x >= canvas.height - barX) {
-            directionX *= -1
-        }
+    context.fillRect(x, canvas.height - barHeight, barWidth, 20) 
+    x += directionX
+    if (x <= 0 || x >= canvas.width - barWidth) {
+        directionX *= -1
+    }
     requestAnimationFrame(mainLoop)
 }
+
 requestAnimationFrame(mainLoop)
 
-document.body.append(canvas)
+document.body.append(canvas) //desenhar o que eu faço no canvas, dentro do body - html
