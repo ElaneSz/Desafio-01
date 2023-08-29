@@ -1,43 +1,93 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.container{
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 30px 5px;
+  background-color: #b6a4ea;
+  box-shadow: 0 0 7em rgb(113, 60, 156);
+}
+
+.logo{
+  max-width: 227px;
+}
+
+.titulo{
+  color: #fff;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.form label{
+  color: #fff;
+  font-size: 20px;
+
+}
+
+.input{
+  width: 100%;
+  height: 48px;
+  border: 0;
+  border-radius: 4px;
+  font-size: 20px;
+  padding: 0 14px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+
+}
+
+.button{
+  width: 100%;
+  height: 48px;
+  font-size: 1rem;
+  background: #59429d;
+  border: 0;
+  border-radius: 5px;
+  margin-bottom: .3rem;
+  color: #ffffff;
+  padding: 0.2em 0.6em;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  cursor: pointer;
+  margin-right: 10px;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.button:hover {
+  background: #afa1db;
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,0.2);
+  text-shadow: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.resultado{
+  background-color: #00b63e;
+  width: 100%;
+  max-width: 420px;
+  padding: 20px 28px;
+  border-radius: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: 24px 0;
+  transition: transform 0.8s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.resultado:hover{
+  transform: scale(1.1);
+
 }
 
-.alcool {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+.titulo-resultado{
+  font-weight: bold;
+  font-size: 24px;
+  color: beige;
+  margin-bottom: 16px;
 }
 
-.read-the-docs {
-  color: #888;
+.resultado span{
+  color: beige;
+  margin-bottom: 8px;
+  font-size: 18px;
 }
