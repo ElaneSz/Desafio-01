@@ -1,18 +1,19 @@
-import { useState } from 'react' // Importação do 'gancho'
+import React, { useState, useEffect } from 'react' // Importação do 'gancho'
 //import './App.css'
 
 //Função Principal
 export default function App () {
   const [input, setInput] = useState("");
-  const [ tarefas, setTarefas ] = useState([
-    'Estudar', 
-    'Lavar Louça', 
-    'Descansar'
-  ])
-  const [ editarTarefa , setEditarTarefa ] = useState({ 
+  const [ tarefas, setTarefas ] = useState<String[]>([]) // Por padrão deixa vazio
+  const [ editarTarefa, setEditarTarefa ] = useState({ 
     enabled: false,
     tarefa: ''
   })
+
+  useEffect(() => {
+    const tarefaSalva = localStorage.getItem("@cursoreact")
+    console.log(tarefaSalva)
+  }, [])
 
   function registrar () {
     if (!input) {
@@ -20,12 +21,14 @@ export default function App () {
       return
     }
     if(editarTarefa.enabled){ //Se estiver 'true', ou seja, se ela estiver ativa
-      editarTarefaSalva(); // Chma a função 'editarTarefaSalva'
+      editarTarefaSalva(); // Chama a função 'editarTarefaSalva'
       return
     }
 
     setTarefas(tarefas => [...tarefas,input])
     setInput("");
+
+    localStorage.setItem("@cursoreact", JSON.stringify([...tarefas, input]))
   }
 
   function editarTarefaSalva () { // Função para editar uma tarefa selecionada
@@ -36,21 +39,25 @@ export default function App () {
     todasTarefas[findIndexTarefa] = input // Procura a que deve ser alterada e altera dentro do 'input'
     setTarefas(todasTarefas); // Mostra todas as tarefas
     setEditarTarefa ({ // Deixa inativo
-      enabled: false,
+      enabled: false, // Seta para falso, para não editar a mesma tarefa
       tarefa: ''
     })
     setInput("")
+
+    localStorage.setItem("@cursoreact", JSON.stringify(todasTarefas))
   }
 
   function excluir ( item: String ) {
     const excluirTarefa = tarefas.filter(tarefas => tarefas !== item) //Filtra todas as tarefas | Pega as tarefas que são != da que você selecionou
     setTarefas(excluirTarefa)
+
+    localStorage.setItem("@cursoreact", JSON.stringify(excluirTarefa))
   }
 
   function editar ( item: String ) {
     setInput(item)
     setEditarTarefa({
-      enabled: true, // Altera para true
+      enabled: true, // Altera para true, para poder editar
       tarefa: item
     })
   }
@@ -64,10 +71,10 @@ export default function App () {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button className='bt-confirmar' onClick={registrar} >Adicionar tarefa</button>
+      <button className='bt-confirmar' onClick={registrar} > {editarTarefa.enabled /*enabled | Se estiver ativo*/ ? "Atualizar tarefa" : /*Caso contrario*/ "Adicionar tarefa"}</button>
       <hr/>
       
-      {tarefas.map( (item, index) => (
+      {tarefas.map( (item, index) => ( // Para inserir as tarefas uma à baixo da outra
         <section key={item} >
           <span>{item}</span>
           <button onClick={ () => excluir(item) } >Excluir</button>
