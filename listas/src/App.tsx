@@ -64,7 +64,7 @@ export default function App () {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={registrar} >Adicionar tarefa</button>
+      <button className='bt-confirmar' onClick={registrar} >Adicionar tarefa</button>
       <hr/>
       
       {tarefas.map( (item, index) => (
