@@ -76,9 +76,11 @@ export default function App () {
       
       {tarefas.map( (item, index) => ( // Para inserir as tarefas uma à baixo da outra
         <section key={item} >
-          <span>{item}</span>
-          <button onClick={ () => excluir(item) } >Excluir</button>
-          <button onClick={ () => editar(item) } >Editar</button>
+          <div>
+            <span>{item}</span>
+            <button onClick={ () => excluir(item) } >Excluir</button>
+            <button onClick={ () => editar(item) } >Editar</button>
+          </div>
         </section>
       ))}
     </div>
