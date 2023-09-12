@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react' // Importação do 'gancho'
+import React, { useState, useEffect, useRef } from 'react' // Importação do 'gancho'
 //import './App.css'
 
 //Função Principal
@@ -9,11 +9,24 @@ export default function App () {
     enabled: false,
     tarefa: ''
   })
+  const inputRef = useRef  <HTMLInputElement>(null);
+  const primeiraR = useRef(true)
 
   useEffect(() => {
     const tarefaSalva = localStorage.getItem("@cursoreact")
-    console.log(tarefaSalva)
+    if (tarefaSalva) { // Verifica as tarefas que ainda estão salvas, para retornar na tela
+      setTarefas(JSON.parse(tarefaSalva));
+    }
   }, [])
+
+  useEffect( () => {
+    if (primeiraR.current) { // Verifica se é a primeira renderização
+      primeiraR.current=false;
+      return;
+    }
+    localStorage.setItem("@cursoreact", JSON.stringify ( tarefas ))
+    console.log("useEffect chamado!!")
+  }, [tarefas])
 
   function registrar () {
     if (!input) {
@@ -27,8 +40,6 @@ export default function App () {
 
     setTarefas(tarefas => [...tarefas,input])
     setInput("");
-
-    localStorage.setItem("@cursoreact", JSON.stringify([...tarefas, input]))
   }
 
   function editarTarefaSalva () { // Função para editar uma tarefa selecionada
@@ -43,18 +54,16 @@ export default function App () {
       tarefa: ''
     })
     setInput("")
-
-    localStorage.setItem("@cursoreact", JSON.stringify(todasTarefas))
   }
 
   function excluir ( item: String ) {
     const excluirTarefa = tarefas.filter(tarefas => tarefas !== item) //Filtra todas as tarefas | Pega as tarefas que são != da que você selecionou
     setTarefas(excluirTarefa)
 
-    localStorage.setItem("@cursoreact", JSON.stringify(excluirTarefa))
   }
 
   function editar ( item: String ) {
+    inputRef.current?.focus(); // Quando clicar em editar, ele já vai com o cursor para dentro do input
     setInput(item)
     setEditarTarefa({
       enabled: true, // Altera para true, para poder editar
@@ -68,10 +77,11 @@ export default function App () {
       <h1>Lista de Tarefas</h1>
       <input
         placeholder="Digite uma tarefa" 
-        value={input}
+        value={ input }
         onChange={(e) => setInput(e.target.value)}
+        ref={ inputRef }
       />
-      <button className='bt-confirmar' onClick={registrar} > {editarTarefa.enabled /*enabled | Se estiver ativo*/ ? "Atualizar tarefa" : /*Caso contrario*/ "Adicionar tarefa"}</button>
+      <button className='bt-confirmar' onClick={ registrar } > { editarTarefa.enabled /*enabled | Se estiver ativo*/ ? "Atualizar tarefa" : /*Caso contrario*/ "Adicionar tarefa"}</button>
       <hr/>
       
       {tarefas.map( (item, index) => ( // Para inserir as tarefas uma à baixo da outra

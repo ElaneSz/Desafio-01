@@ -2,6 +2,8 @@
 
 
 ## Rooks - Auxilio fornecido pelo REACT 
-`````
-- useState
-- useEffect
+````bash
+    | useState
+    | useEffect
+    | useRef
+````
