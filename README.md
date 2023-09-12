@@ -6,4 +6,6 @@
     | useState
     | useEffect
     | useRef
+    | useMemo
+    | useCallback
 ````

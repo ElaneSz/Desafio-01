@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react' // Importação do 'gancho'
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react' // Importação do 'gancho'
 //import './App.css'
 
 //Função Principal
@@ -11,6 +11,7 @@ export default function App () {
   })
   const inputRef = useRef  <HTMLInputElement>(null);
   const primeiraR = useRef(true)
+
 
   useEffect(() => {
     const tarefaSalva = localStorage.getItem("@cursoreact")
@@ -25,10 +26,10 @@ export default function App () {
       return;
     }
     localStorage.setItem("@cursoreact", JSON.stringify ( tarefas ))
-    console.log("useEffect chamado!!")
+    //console.log("useEffect chamado!!")
   }, [tarefas])
 
-  function registrar () {
+  const registrar = useCallback ( () => {
     if (!input) {
       alert("Preencha o nome da sua tarefa!")
       return
@@ -40,7 +41,7 @@ export default function App () {
 
     setTarefas(tarefas => [...tarefas,input])
     setInput("");
-  }
+  }, [ input, tarefas ])
 
   function editarTarefaSalva () { // Função para editar uma tarefa selecionada
     const findIndexTarefa = tarefas.findIndex(tarefas => tarefas === editarTarefa.tarefa) /*Procura o 
@@ -71,6 +72,10 @@ export default function App () {
     })
   }
 
+  const totalTarefas = useMemo(() => { // Para retornar o total de tarefas
+    return tarefas.length
+  }, [tarefas])
+
   //------------------------------------------------------------------------
   return (
     <div>
@@ -83,7 +88,8 @@ export default function App () {
       />
       <button className='bt-confirmar' onClick={ registrar } > { editarTarefa.enabled /*enabled | Se estiver ativo*/ ? "Atualizar tarefa" : /*Caso contrario*/ "Adicionar tarefa"}</button>
       <hr/>
-      
+      <strong>Voce tem: { totalTarefas } tarefas!</strong>
+      <hr/>
       {tarefas.map( (item, index) => ( // Para inserir as tarefas uma à baixo da outra
         <section key={item} >
           <div>
