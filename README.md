@@ -8,4 +8,5 @@
     | useRef
     | useMemo
     | useCallback
+    | <!--npm init vite@latest 'nomeProjeto' --template react-->
 ````
