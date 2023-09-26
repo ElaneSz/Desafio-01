@@ -3,7 +3,7 @@ import logo from './assets/logo.png'
 import './App.css'
 
 function App() {
-  const [ textoFrase, setTextoFrsae ] = useState("")
+  const [ textoFrase, setTextoFrase ] = useState("")
   const [ categoriaSelecionada, setCategoriaSelecionada ] = useState(0)
   const todasFrases = [
     {
@@ -48,17 +48,23 @@ function App() {
   ]
 
   function categoriaEscolhida (index: number) {
-    console.log("Posição do item clicado", index)
+    setCategoriaSelecionada(index); // Passa o número referente a categoria selecianada
+  }
+
+  function gerarFrase () {
+    let numeroAleatorio = Math.floor(Math.random() * todasFrases [categoriaSelecionada].frases.length) /* Escolhe 
+    um valor (inteiro), dentro da categoria que foi selecionada | 'length' é o tamanho do array*/
+    setTextoFrase(`"${todasFrases[categoriaSelecionada].frases[numeroAleatorio]}"`)
   }
 
   return (
     <>
-      <div className="container">
-        <img
-          alt="Logo frases"
-          src={logo}
-          className="logo"
-        />
+        <div className="container">
+          <img
+            alt="Logo frases"
+            src={logo}
+            className="logo"
+          />
         <h2 className="titulo" >Categorias</h2>
         <section className="area-categoria" >
           { todasFrases.map( (item,index) => (
@@ -68,7 +74,7 @@ function App() {
             >{item.nome}</button>
           )) }
         </section>
-        <button className="botao-frase" >Gerar frases</button>
+        <button className="botao-frase" onClick={ gerarFrase } >Gerar frases</button>
         { textoFrase !== '' && <p className="texto-frase" >{ textoFrase }</p> /* Renderização por condição */ }
       </div>
     </>
