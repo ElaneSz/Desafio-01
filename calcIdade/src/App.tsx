@@ -1,40 +1,58 @@
-import { useState, useCallback } from 'react'
-import reactLogo from './assets/logo.png'
+import { useState } from 'react'
+import logo from './assets/logo.png'
 import './App.css'
 
 function App() {
-  const [inputAno, setInputAno] = useState("");
-  
+  const [dataNascimento, setdataNascimento] = useState('');
+  const [nome, setNome] = useState('');
+  const [idade, setIdade] = useState(null);
 
-  const calcular = useCallback ( () => {
-    if (!inputAno) {
-      alert("Preencha os campos corretamentes!")
-      return
+  const calculateidade = () => {
+    if (!nome || !dataNascimento) { // Se o nome e a data de nascimento não forem preenchidos
+      alert('Por favor, insira seu nome e sua data de nascimento.');
+      return;
     }
-    console.log(".......")
-  }, [ inputAno ])
+
+    const dataNascimentoObj = new Date(dataNascimento); //  Data de nascimento fornecida pelo usuário, agora no formato de objeto 'Date'
+    const dataAtual = new Date(); // Pega a data atual
+
+    if (dataNascimentoObj >= dataAtual) { // Se data atual for maior ou igual à atual
+      alert('A data de nascimento não pode ser no futuro.');
+      return;
+    }
+
+    const idadeMilissegundos = dataAtual - dataNascimentoObj; // calcula o tempo de vida
+    const idadeAnos = Math.floor(idadeMilissegundos / (365 * 24 * 60 * 60 * 1000)); // Converte para anos
+    setIdade(idadeAnos);
+  };
 
   return (
-    <>
-        <div className="pricipal">
-          <div>
-            <img src={reactLogo} className="logo react" alt="React logo" />
-          </div>
-          <h1>Descubra a sua Idade</h1>
-          <hr/>
-          <label>Digite seu nome:</label>
-          <input placeholder="Insira aqui..." type="text" required />
-
-          <label>Digite o ano em que você nasceu:</label>
-          <input value={ inputAno } className="ano-nascimento" placeholder="Insira aqui..." type="number" required />
-
-          <button className='bt-calcular' onClick={ calcular } >Calcular Idade</button>
-          <p className="rodape-idade">A idade apare aqui!</p>
-        </div>
-    </>
-  )
+    <div className='principal'>
+      <div className='logo'>
+            <img src={logo} alt="React logo" />
+      </div>
+      <div className='informacoes'>
+        <h1>Descubra sua idade!</h1>
+        <label>Nome completo:</label>
+        <input
+          type="text"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)} // Evento que atribui o nome incerido para o 'setNome'
+        />
+        <label>Data de Nascimento:</label>
+        <input
+          type="date"
+          value={dataNascimento}
+          onChange={(e) => setdataNascimento(e.target.value)} // Evento que atribui o data incerida para o 'setdataNascimento'
+        />
+        <button onClick={calculateidade}>Calcular Idade</button>
+        {idade !== null && <p>{nome}, sua idade é: {idade} anos</p>}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
 
 // lissandra.fischer@ifc.edu.br

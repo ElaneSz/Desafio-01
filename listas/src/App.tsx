@@ -77,29 +77,6 @@ export default function App () {
   }, [tarefas])
 
   //------------------------------------------------------------------------
-  return (
-    <div>
-      <h1>Lista de Tarefas</h1>
-      <input
-        placeholder="Digite uma tarefa" 
-        value={ input }
-        onChange={(e) => setInput(e.target.value)}
-        ref={ inputRef }
-      />
-      <button className='bt-confirmar' onClick={ registrar } > { editarTarefa.enabled /*enabled | Se estiver ativo*/ ? "Atualizar tarefa" : /*Caso contrario*/ "Adicionar tarefa"}</button>
-      <hr/>
-      <strong>Voce tem: { totalTarefas } tarefas!</strong>
-      <hr/>
-      {tarefas.map( (item, index) => ( // Para inserir as tarefas uma à baixo da outra
-        <section key={item} >
-          <div>
-            <span>{item}</span>
-            <button onClick={ () => excluir(item) } >Excluir</button>
-            <button onClick={ () => editar(item) } >Editar</button>
-          </div>
-        </section>
-      ))}
-    </div>
-  )
+  ?
 }
 
