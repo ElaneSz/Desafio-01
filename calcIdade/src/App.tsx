@@ -8,7 +8,7 @@ function App() {
   const [idade, setIdade] = useState(null);
 
   const calculateidade = () => {
-    if (!nome || !dataNascimento) { // Se o nome e a data de nascimento não forem preenchidos
+    if (!nome || !dataNascimento) { // Se o nome ou data de nascimento não forem preenchidos
       alert('Por favor, insira seu nome e sua data de nascimento.');
       return;
     }
@@ -23,7 +23,15 @@ function App() {
 
     const idadeMilissegundos = dataAtual - dataNascimentoObj; // calcula o tempo de vida
     const idadeAnos = Math.floor(idadeMilissegundos / (365 * 24 * 60 * 60 * 1000)); // Converte para anos
-    setIdade(idadeAnos);
+    /*
+      | 365 é o número de dias em um ano.
+      | 24 é o número de horas em um dia.
+      | 60 é o número de minutos em uma hora.
+      | 60 é o número de segundos em um minuto.
+      | 1000 é o número de milissegundos em um segundo. 
+      <!--Portanto, multiplicando todas essas partes, teremos o número de milissegundos em um ano.-->
+    */
+    setIdade(idadeAnos); 
   };
 
   return (
