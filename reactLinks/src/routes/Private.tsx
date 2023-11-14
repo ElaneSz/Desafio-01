@@ -13,14 +13,14 @@ export function Private({children}: PrivateProps) : any{
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
-            if (use) {
+            if (user) {
                 const userData = {
-                    uid: user?.id,
+                    uid: user?.uid,
                     email: user?.email
                 }
-                localStorage.SetItem("@medusaLinks", JSON.stringify(userData))
-                setLoading(false) // Agora não está carregando!
-                setSigned(true) // Agora está logado!
+                localStorage.setItem("@reactLinks", JSON.stringify(userData))
+                setLoading(false);
+                setSigned(true);
             } else {
                 setLoading(false)
                 setSigned(false)
